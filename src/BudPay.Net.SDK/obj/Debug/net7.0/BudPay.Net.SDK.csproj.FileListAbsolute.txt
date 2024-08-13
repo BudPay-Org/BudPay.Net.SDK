@@ -1,0 +1,6 @@
+/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/BudPay.Net.SDK.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/BudPay.Net.SDK.AssemblyInfoInputs.cache
+/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/BudPay.Net.SDK.AssemblyInfo.cs
+/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/BudPay.Net.SDK.csproj.CoreCompileInputs.cache
+/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/BudPay.Net.SDK.sourcelink.json
+/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/BudPay.Net.SDK.csproj.AssemblyReference.cache
