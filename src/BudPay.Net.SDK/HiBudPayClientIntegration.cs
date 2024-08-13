@@ -1,10 +1,11 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
+using BudPay.Net.SDK.DataTransfers;
 using BudPay.Net.SDK.Interfaces.IIntegrations;
 using Newtonsoft.Json;
 
-namespace BudPay.Net.SDK.Infrastructure.Integrations;
+namespace BudPay.Net.SDK;
 
 public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
 {
@@ -39,7 +40,7 @@ public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
 
         private Uri CreateRequestUri(string relativePath, string queryString = "")
         {
-            var endpoint = new Uri(relativePath);
+            var endpoint = new Uri(string.Concat(BaseConstant.BudpayBaseUrl, relativePath));
             var uriBuilder = new UriBuilder(endpoint);
             if (!string.IsNullOrEmpty(queryString))
             {
@@ -82,5 +83,13 @@ public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
                 };
             }
         }
+
+  #region  Accept Payment
+        public async Task<StandardCheckoutResponse> StandardCheckout(StandardCheckoutRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+  #endregion  
 
 }
