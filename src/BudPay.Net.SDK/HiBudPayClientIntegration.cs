@@ -3,8 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using BudPay.Net.SDK.Constants;
 using BudPay.Net.SDK.DataTransfers;
-using BudPay.Net.SDK.Interfaces.IIntegrations;
-using BudPay.Net.SDK.Services;
+using BudPay.Net.SDK.Interfaces;
 using Newtonsoft.Json;
 
 namespace BudPay.Net.SDK;
@@ -104,7 +103,7 @@ public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
 
         #region  Server to Server
 
-        public async Task<string> CardEncryption(string cardNumber, string expiryMonth, string expiryYear, string cvv, string pin, string reference,  byte[] key, byte[] iv)
+        private async Task<string> CardEncryption(string cardNumber, string expiryMonth, string expiryYear, string cvv, string pin, string reference,  byte[] key, byte[] iv)
         {
             var cardData = new CardDetailsRequest
             {
@@ -135,9 +134,23 @@ public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
         //Note: You will receive 3DS2 response for cards that support 3DS2. 
         //If not, you will get the Final Response instead.
 
-        public async Task<string> InitializeTransaction(S2SInitializeTransactionRequest request, string token)
+        public async Task<string> InitializeTransaction(string cardNumber, string expiryMonth, string expiryYear, string cvv, string pin, string amount, string callback, string currency, string email, string reference,  byte[] key, byte[] iv, string token)
         {
-             var response = await PostAsync<string>(BaseConstant.InitializeTransactionS2S, request, token);
+            
+             string card = await CardEncryption(cardNumber, expiryMonth, expiryYear, cvv, pin, reference, key, iv);
+
+              var paylod = new List<KeyValuePair<string, string>>
+              {
+                  new("amount", amount),
+                  new("card", card),
+                  new("callback", callback),
+                  new("currency", currency),
+                  new("email", email),
+                  new("pin", pin),
+                  new("reference", reference),
+              };
+
+             var response = await PostAsync<string>(BaseConstant.InitializeTransactionS2S, paylod, token);
              if (response is null) return string.Empty;
              return response;   
         }

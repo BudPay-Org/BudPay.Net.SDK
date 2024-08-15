@@ -4,7 +4,7 @@ using BudPay.Net.SDK.DataTransfers;
 using BudPay.Net.SDK.Interfaces;
 using Newtonsoft.Json;
 
-namespace BudPay.Net.SDK.Services;
+namespace BudPay.Net.SDK;
 
 public class EncyptionService : IEncyptionService
 {
