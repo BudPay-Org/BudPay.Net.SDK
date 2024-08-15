@@ -55,24 +55,32 @@
     ]
   },
   "packageFolders": {
-    "/Users/mavics/.nuget/packages/": {}
+    "C:\\Users\\FALADE\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj",
+      "projectUniqueName": "C:\\Projects\\BudPay.Net.SDK\\src\\BudPay.Net.SDK\\BudPay.Net.SDK.csproj",
       "projectName": "BudPay.Net.SDK",
-      "projectPath": "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj",
-      "packagesPath": "/Users/mavics/.nuget/packages/",
-      "outputPath": "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/",
+      "projectPath": "C:\\Projects\\BudPay.Net.SDK\\src\\BudPay.Net.SDK\\BudPay.Net.SDK.csproj",
+      "packagesPath": "C:\\Users\\FALADE\\.nuget\\packages\\",
+      "outputPath": "C:\\Projects\\BudPay.Net.SDK\\src\\BudPay.Net.SDK\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/mavics/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\FALADE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -85,6 +93,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -112,7 +125,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   }
