@@ -8,7 +8,7 @@ public class PayoutService : IPayoutService
     private readonly string _token;
      private readonly HttpClient _httpClient;
      private readonly EncyptionService encyptionService;
-    private  IHiBudPayClientIntegration _hiBudPayClientIntegration;
+    private  IBudPayClientIntegration _hiBudPayClientIntegration;
 
 
     private PayoutService(HttpClient httpClient, EncyptionService encyptionService)
@@ -23,12 +23,12 @@ public class PayoutService : IPayoutService
     }
 
   
-  private IHiBudPayClientIntegration HiBudPayClientIntegration
+  private IBudPayClientIntegration HiBudPayClientIntegration
   {
     get
     {
          if(_hiBudPayClientIntegration == null)
-         _hiBudPayClientIntegration = new HiBudPayClientIntegration(_httpClient, encyptionService);
+         _hiBudPayClientIntegration = new BudPayClientIntegration(_httpClient, encyptionService);
          return _hiBudPayClientIntegration;
     }
   }

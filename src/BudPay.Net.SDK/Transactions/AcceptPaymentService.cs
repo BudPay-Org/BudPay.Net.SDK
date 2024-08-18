@@ -11,6 +11,11 @@ public class AcceptPaymentService : IAcceptPaymentService
     private readonly EncyptionService encyptionService;
 
 
+    public AcceptPaymentService(HttpClient httpClient, EncyptionService encyptionService)
+    {
+        _httpClient = httpClient;
+        this.encyptionService = encyptionService;
+    }
     public AcceptPaymentService(string token)
     {
         _token = token;
