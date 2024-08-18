@@ -254,14 +254,14 @@ public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
 
   #region  Payouts
 
-    public async Task<BankListResponse> BankList(string? currency = "NGN")
+    public async Task<BankListResponse> BankList(string token, string? currency = "NGN")
     {
         var response = await GetAsync<BankListResponse>(string.Concat(BaseConstant.GetBanks, $"/{currency}"));
         if(response is null) return new BankListResponse();
         return response;
     }
 
-    public async Task<AccountNumberValidationResponse> AccountNameValidation(string bankCode, string accountNumber, string currency)
+    public async Task<AccountNumberValidationResponse> AccountNameValidation(string bankCode, string accountNumber, string currency, string token)
     {
         var payload = new List<KeyValuePair<string, string>>
         {
@@ -270,7 +270,7 @@ public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
             new("currency", currency)
         };
               
-        var response = await PostAsync<AccountNumberValidationResponse>(BaseConstant.AccountNameValidation,  payload);
+        var response = await PostAsync<AccountNumberValidationResponse>(BaseConstant.AccountNameValidation,  payload, token);
         if (response is null) return new AccountNumberValidationResponse();
         return response;
     }

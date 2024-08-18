@@ -18,8 +18,8 @@ public interface IHiBudPayClientIntegration
 
 
     #region  Payouts
-    Task<BankListResponse> BankList(string? currency = "NGN");
-    Task<AccountNumberValidationResponse> AccountNameValidation(string bankCode, string accountNumber, string currency);
+    Task<BankListResponse> BankList(string token, string? currency = "NGN");
+    Task<AccountNumberValidationResponse> AccountNameValidation(string bankCode, string accountNumber, string currency, string token);
     Task<SinglePayoutResponse> SinglePayout(SinglePayoutRequest request, string token);
     Task<BulkPayoutResponse> BulkPayout(BulkPayoutRequest request, string token);
     Task<VerifyPayoutResponse> VerifyPayout(string reference, string token);

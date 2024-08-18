@@ -14,7 +14,7 @@ public class SinglePayoutRequest
     
     public string Narration { get; set; }
     
-    public string PaymentMode { get; set; }
+    public string? PaymentMode { get; set; }
     
     public string Reference { get; set; }
 }

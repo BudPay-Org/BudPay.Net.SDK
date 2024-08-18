@@ -1,5 +1,6 @@
 ﻿using BudPay.Net.SDK.Collections;
 using BudPay.Net.SDK.Interfaces;
+using BudPay.Net.SDK.Payouts;
 
 namespace BudPay.Net.SDK;
 
@@ -8,6 +9,7 @@ namespace BudPay.Net.SDK;
 public interface IBudPayApi
 {
   IAcceptPaymentService AcceptPaymentService { get; }
+  IPayoutService PayoutService { get; }
 }
 
 
@@ -16,6 +18,7 @@ public class BudPayApi : IBudPayApi
 {
     private string _token;
     private IAcceptPaymentService _acceptPayments;
+    private IPayoutService _payoutService;
 
     public BudPayApi(string token)
     {
@@ -29,6 +32,16 @@ public class BudPayApi : IBudPayApi
            if(_acceptPayments == null) 
            _acceptPayments = new AcceptPaymentService(_token);  
            return _acceptPayments;  
+        }
+    }
+
+    public IPayoutService PayoutService
+    {
+        get
+        {
+           if(_payoutService == null)
+           _payoutService = new PayoutService(_token);
+           return _payoutService;
         }
     }
 }
