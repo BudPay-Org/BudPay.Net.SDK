@@ -26,7 +26,7 @@ public class BudPayApi : IBudPayApi
     {
         get
         {
-          if(_acceptPayments == null) 
+           if(_acceptPayments == null) 
            _acceptPayments = new AcceptPaymentService(_token);  
            return _acceptPayments;  
         }

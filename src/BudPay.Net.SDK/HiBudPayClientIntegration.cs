@@ -251,4 +251,91 @@ public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
 
   #endregion  
 
+
+  #region  Payouts
+
+    public async Task<BankListResponse> BankList(string? currency = "NGN")
+    {
+        var response = await GetAsync<BankListResponse>(string.Concat(BaseConstant.GetBanks, $"/{currency}"));
+        if(response is null) return new BankListResponse();
+        return response;
+    }
+
+    public async Task<AccountNumberValidationResponse> AccountNameValidation(string bankCode, string accountNumber, string currency)
+    {
+        var payload = new List<KeyValuePair<string, string>>
+        {
+            new("bank_code", bankCode),
+            new("account_number", accountNumber),
+            new("currency", currency)
+        };
+              
+        var response = await PostAsync<AccountNumberValidationResponse>(BaseConstant.AccountNameValidation,  payload);
+        if (response is null) return new AccountNumberValidationResponse();
+        return response;
+    }
+
+    public async Task<SinglePayoutResponse> SinglePayout(SinglePayoutRequest request, string token)
+    {
+       var encryption =   _encyptionService.GenerateHmacSha512Signature(token, JsonConvert.SerializeObject(request));
+        var response = await PostAsync<SinglePayoutResponse>(BaseConstant.SinglePayout, request, token, encryption);
+        if (response is null) return new SinglePayoutResponse();
+        return response;
+    }
+
+    public async Task<BulkPayoutResponse> BulkPayout(BulkPayoutRequest request, string token)
+    {
+        var encryption =   _encyptionService.GenerateHmacSha512Signature(token, JsonConvert.SerializeObject(request));
+       var response = await PostAsync<BulkPayoutResponse>(BaseConstant.BulkPayout, request, token, encryption);
+       if(response is null) return new BulkPayoutResponse();
+       return response;
+    }
+
+
+    public async Task<VerifyPayoutResponse> VerifyPayout(string reference, string token)
+    {
+        var response =  await GetAsync<VerifyPayoutResponse>(BaseConstant.VerifyPayout.Replace("reference", reference), null, token);
+       if(response is null) return new VerifyPayoutResponse();
+       return response;
+    }
+    
+
+    public async Task<ListAllPayoutResponse> ListAllPayouts(string token)
+    {
+       var response =  await GetAsync<ListAllPayoutResponse>(BaseConstant.ListAllPayouts, null, token);
+       if(response is null) return new ListAllPayoutResponse();
+       return response; 
+    }
+
+
+    public async Task<PayoutFeeResponse> PayoutFee(string currency, string amount, string token)
+    {
+        var payload =  new List<KeyValuePair<string, string>>()
+        {
+            new("currency", currency),
+            new("amount", amount)
+        };
+
+        var response = await PostAsync<PayoutFeeResponse>(BaseConstant.PayoutFee, payload, token);
+        if(response is null) return new PayoutFeeResponse();
+         return response; 
+    }
+
+    public async Task<WalletBalanceResponse>WalletBalance(string currency, string token)
+    {
+        var response =  await GetAsync<WalletBalanceResponse>(BaseConstant.WalletBalance.Replace("{currency}", currency), null, token);
+        if(response is null) return new WalletBalanceResponse();
+        return response;
+    }
+
+
+  public async Task<WalletTransactionResponse> WalletTransactions(string currency, string token)
+  {
+    var response = await GetAsync<WalletTransactionResponse>(BaseConstant.WalletTransactions.Replace("{currency}", currency), null, token);
+     if(response is null) return new WalletTransactionResponse();
+        return response;
+  }
+
+    #endregion Payouts
+
 }
