@@ -11,3 +11,16 @@
 /Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/refint/BudPay.Net.SDK.dll
 /Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/BudPay.Net.SDK.pdb
 /Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/Debug/net7.0/ref/BudPay.Net.SDK.dll
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\bin\Debug\net7.0\BudPay.Net.SDK.deps.json
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\bin\Debug\net7.0\BudPay.Net.SDK.dll
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\bin\Debug\net7.0\BudPay.Net.SDK.pdb
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.csproj.AssemblyReference.cache
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.AssemblyInfoInputs.cache
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.AssemblyInfo.cs
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.csproj.CoreCompileInputs.cache
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.sourcelink.json
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.dll
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\refint\BudPay.Net.SDK.dll
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\BudPay.Net.SDK.pdb
+C:\Projects\BudPay.Net.SDK\src\BudPay.Net.SDK\obj\Debug\net7.0\ref\BudPay.Net.SDK.dll

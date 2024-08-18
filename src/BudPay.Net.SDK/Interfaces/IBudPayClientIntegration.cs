@@ -2,7 +2,7 @@
 
 namespace BudPay.Net.SDK.Interfaces;
 
-public interface IHiBudPayClientIntegration
+public interface IBudPayClientIntegration
 {
     Task<StandardCheckoutResponse> StandardCheckout(StandardCheckoutRequest request, string token);
     Task<string> InitializeTransaction(string cardNumber, string expiryMonth, string expiryYear, string cvv, string pin, 
@@ -16,8 +16,7 @@ public interface IHiBudPayClientIntegration
     Task<FetchTransactionResponse> FetchTransactionById(string Id, string token);
     Task<FetchAllTransactionsResponse> FetchAllTransactions(string token);
 
-
-    #region  Payouts
+      #region  Payouts
     Task<BankListResponse> BankList(string token, string? currency = "NGN");
     Task<AccountNumberValidationResponse> AccountNameValidation(string bankCode, string accountNumber, string currency, string token);
     Task<SinglePayoutResponse> SinglePayout(SinglePayoutRequest request, string token);

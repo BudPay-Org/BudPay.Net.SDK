@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ss2wzFBXqz93t6+phKpo+4Dmo6k+3cLlS03wm3r9mlJOibuQs+BRjA5aRtUcyZkopUoPQz1iQlY3f6uDkaq9+Q==",
+  "dgSpecHash": "ea/gVL431XM=",
   "success": true,
-  "projectFilePath": "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj",
+  "projectFilePath": "C:\\Projects\\BudPay.Net.SDK\\src\\BudPay.Net.SDK\\BudPay.Net.SDK.csproj",
   "expectedPackageFiles": [
-    "/Users/mavics/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\FALADE\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }

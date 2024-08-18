@@ -1,6 +1,6 @@
-﻿using BudPay.Net.SDK.Collections;
 using BudPay.Net.SDK.Interfaces;
 using BudPay.Net.SDK.Payouts;
+using BudPay.Net.SDK.Transactions;
 
 namespace BudPay.Net.SDK;
 

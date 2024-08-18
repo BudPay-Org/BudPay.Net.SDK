@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 
 namespace BudPay.Net.SDK;
 
-public class HiBudPayClientIntegration  : IHiBudPayClientIntegration
+public class BudPayClientIntegration  : IBudPayClientIntegration
 {
          private readonly HttpClient _client;
          private readonly EncyptionService  _encyptionService;
-    public HiBudPayClientIntegration(HttpClient httpClient, EncyptionService encyptionService)
+    public BudPayClientIntegration(HttpClient httpClient, EncyptionService encyptionService)
     {
         ServicePointManager.Expect100Continue = true;
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
