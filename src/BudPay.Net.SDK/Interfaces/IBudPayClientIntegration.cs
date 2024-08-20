@@ -29,4 +29,22 @@ public interface IBudPayClientIntegration
 
 
     #endregion Payouts
+
+
+    #region  BillPayments
+      Task<AirtimeProvderResponse> GetAirtimeProviders(string token);
+      Task<AirtimeTopupResponse> AirtimeTopup(AirtimeTopupRequest request, string token);
+      Task<InternetProviderResponse> GetInternetProviders(string token);
+      Task<InternetDataPlansResponse> InternetDataPlans(string provider, string token);
+      Task<InternetDataPurchaseResponse> InternetDataPurchase(InternetDataPurchaseRequest request, string token);
+      Task<TvProvidersResponse> GetAllTvProviders(string token);
+      Task<TvPackageResponse> TvPackages(string provider, string token);
+      Task<TvValidateResponse> TvValidate(string provider, string number, string token);
+      Task<TvSubscriptionResponse> TvSubscription(string provider, string number, string code, string reference, string token);
+      Task<ElectricityProviderResponse> ElectricityProviders(string token);
+      Task<ElectricityValidateResponse> ElectricityValidate(string provider, string type, string number, string token);
+      Task<ElectricityRechargeResponse> ElectricityRecharge(ElectricityRechargeRequest request, string token);
+
+
+    #endregion BillPayments
 }

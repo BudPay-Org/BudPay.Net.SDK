@@ -22,5 +22,17 @@ public class BaseConstant
     public const string PayoutFee = "/v2/payout_fee";
     public const string WalletBalance = "/v2/wallet_balance/{currency}";
     public const string WalletTransactions = "/v2/wallet_transactions/{currency}";
+    public const string GetAirtimeProviders = "/v2/airtime";
+    public const string AirtimeTopup = "/v2/airtime/topup";
+    public const string GetInternetProviders = "/v2/internet";
+    public const string InternetDataPlans = "/v2/internet/plans/{provider}";
+    public const string InternetDataPurchase = "/v2/internet/data";
+    public const string TvProviders = "/v2/tv";
+    public const string TvPackages = "/v2/tv/packages/{provider}";
+    public const string TvValidate = "/v2/tv/validate";
+    public const string TvSubscription = "/tv/pay";
+    public const string ElectricityProviders = "/v2/electricity";
+    public const string ElectricityValidate = "/v2/electricity/validate";
+    public const string ElectricityRecharge = "/v2/electricity/recharge";
     
 }

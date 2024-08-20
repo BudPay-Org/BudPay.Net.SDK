@@ -338,4 +338,128 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
 
     #endregion Payouts
 
+
+    #region BillsPayment
+      
+      public async Task<AirtimeProvderResponse> GetAirtimeProviders(string token)
+      {
+        var response = await GetAsync<AirtimeProvderResponse>(BaseConstant.GetAirtimeProviders, null, token);
+        if(response is null) return new AirtimeProvderResponse();
+        return response;
+      }
+
+      public async Task<AirtimeTopupResponse> AirtimeTopup(AirtimeTopupRequest request, string token)
+      {
+        var payload = JsonConvert.SerializeObject(request);
+        var encryption = _encyptionService.GenerateHmacSha512Signature(token, payload);
+       var response =  await PostAsync<AirtimeTopupResponse>(BaseConstant.AirtimeTopup, request, token, encryption);
+       if(response is null) return new AirtimeTopupResponse();
+       return response;
+        
+      }
+
+
+      public async Task<InternetProviderResponse> GetInternetProviders(string token)
+      {
+         var response = await GetAsync<InternetProviderResponse>(BaseConstant.GetInternetProviders, null, token);
+         if(response is null) return new InternetProviderResponse();
+         return response;
+      }
+
+      public async Task<InternetDataPlansResponse> InternetDataPlans(string provider, string token)
+      {
+       var response =  await GetAsync<InternetDataPlansResponse>(BaseConstant.InternetDataPlans.Replace("{provider}", provider),null, token);
+       if(response is null) return new InternetDataPlansResponse();
+       return response;
+      }
+
+      public async Task<InternetDataPurchaseResponse> InternetDataPurchase(InternetDataPurchaseRequest request, string token)
+      {
+        var payload = JsonConvert.SerializeObject(request);
+        var encryption = _encyptionService.GenerateHmacSha512Signature(token, payload);
+        var response = await PostAsync<InternetDataPurchaseResponse>(BaseConstant.InternetDataPurchase, request, token, encryption);
+        if(response is null) return new InternetDataPurchaseResponse();
+        return response;
+      }
+
+      public async Task<TvProvidersResponse> GetAllTvProviders(string token)
+      {
+        var response = await GetAsync<TvProvidersResponse>(BaseConstant.TvProviders, null, token);
+        if(response is null) return new TvProvidersResponse();
+        return response;
+      }
+
+      public async Task<TvPackageResponse> TvPackages(string provider, string token)
+      {
+         var response = await GetAsync<TvPackageResponse>(BaseConstant.TvPackages.Replace("{provider}", provider), null, token);
+         if(response is null) return new TvPackageResponse();
+         return response;
+      }
+
+      public async Task<TvValidateResponse> TvValidate(string provider, string number, string token)
+      {
+        var payload =  new List<KeyValuePair<string, string>>()
+        {
+            new("provider", provider),
+            new("number", number),
+        };
+
+        var response =  await PostAsync<TvValidateResponse>(BaseConstant.TvValidate, payload, token);
+        if (response is null) return new TvValidateResponse();
+        return response;
+      }
+
+
+      public async Task<TvSubscriptionResponse> TvSubscription(string provider, string number, string code, string reference, string token)
+      {
+         var payload = new List<KeyValuePair<string, string>>()
+         {
+            new("provider", provider),
+            new("number", number),
+            new("code", code),
+            new("reference", reference)
+         };
+           var stringyfiedPayload = JsonConvert.SerializeObject(payload);
+         var encryption =  _encyptionService.GenerateHmacSha512Signature(token, stringyfiedPayload);
+         var response = await PostAsync<TvSubscriptionResponse>(BaseConstant.TvSubscription, payload, token, encryption);
+         if (response is null) return new TvSubscriptionResponse();
+         return response;
+      }
+
+
+      public async Task<ElectricityProviderResponse> ElectricityProviders(string token)
+      {
+        var response = await GetAsync<ElectricityProviderResponse>(BaseConstant.ElectricityProviders, null, token);
+        if(response is null) return new ElectricityProviderResponse();
+        return response;
+      }
+
+      public async Task<ElectricityValidateResponse> ElectricityValidate(string provider, string type, string number, string token)
+      {
+        var payload = new List<KeyValuePair<string, string>>()
+        {
+            new("provider", provider),
+            new("type", type),
+            new("number", number)
+        };
+
+         var response =  await PostAsync<ElectricityValidateResponse>(BaseConstant.ElectricityValidate, payload, token);
+         if (response is null) return new ElectricityValidateResponse();
+         return response;
+
+      }
+
+      public async Task<ElectricityRechargeResponse> ElectricityRecharge(ElectricityRechargeRequest request, string token)
+      {
+         var payload = JsonConvert.SerializeObject(request);
+         var encryption = _encyptionService.GenerateHmacSha512Signature(token, payload);
+         var response = await PostAsync<ElectricityRechargeResponse>(BaseConstant.ElectricityRecharge, request, token, encryption);
+         if (response is null) return new ElectricityRechargeResponse();
+         return response;
+      }
+
+
+
+    #endregion BillsPayment
+
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BudPay.Net.SDK")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8d8496d9d361e651121327ac5225b8cab252306")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+260d7f79c5ed4dd9ac09143c83e68c96c02a5e08")]
 [assembly: System.Reflection.AssemblyProductAttribute("BudPay.Net.SDK")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BudPay.Net.SDK")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
