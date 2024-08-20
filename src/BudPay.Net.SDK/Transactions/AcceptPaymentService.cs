@@ -21,7 +21,6 @@ public class AcceptPaymentService : IAcceptPaymentService
         _token = token;
     }
 
-
     private IBudPayClientIntegration HiBudPayClientIntegration
     {
         get
@@ -31,7 +30,6 @@ public class AcceptPaymentService : IAcceptPaymentService
             return _budPayClientIntegration;
         }
     }
-
 
     public async Task<StandardCheckoutResponse> StandardCheckoutAsync(StandardCheckoutRequest request)
     {
@@ -53,7 +51,6 @@ public class AcceptPaymentService : IAcceptPaymentService
     {
         return await HiBudPayClientIntegration.MomoPaymentProviders(currency, _token);
     }
-
 
     public async Task<string> MomoPaymentRequestAsync(MomoInitiatePaymentRequest request)
     {
@@ -84,5 +81,4 @@ public class AcceptPaymentService : IAcceptPaymentService
     {
         return await HiBudPayClientIntegration.FetchAllTransactions(_token);
     }
-
 }
