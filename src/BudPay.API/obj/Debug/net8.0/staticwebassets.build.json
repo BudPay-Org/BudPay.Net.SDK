@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "+S5f9QdTeEVRYwNFJs2bN6iY+nAh1NOLhUpc+60gTbc=",
+  "Source": "BudPay.API",
+  "BasePath": "_content/BudPay.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

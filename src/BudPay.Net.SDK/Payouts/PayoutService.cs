@@ -17,7 +17,7 @@ public class PayoutService : IPayoutService
         this.encyptionService = encyptionService;
     }
 
-    public PayoutService(string token)
+    public PayoutService(string token) : this(new HttpClient(), new EncyptionService())
     {
         _token = token;
     }

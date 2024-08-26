@@ -10,15 +10,16 @@ public class BillPaymentService : IBillPaymentService
      private readonly EncyptionService encyptionService;
     private IBudPayClientIntegration _hiBudPayClientIntegration;
 
-    public BillPaymentService(string token)
-    {
-        _token = token;
-    }
-    private BillPaymentService(HttpClient httpClient, IBudPayClientIntegration hiBudPayClientIntegration, EncyptionService encyptionService)
+   
+    private BillPaymentService(HttpClient httpClient, EncyptionService encyptionService)
     {
         _httpClient = httpClient;
-        _hiBudPayClientIntegration = hiBudPayClientIntegration;
         this.encyptionService = encyptionService;
+    }
+
+     public BillPaymentService(string token) : this(new HttpClient(), new EncyptionService())
+    {
+        _token = token;
     }
 
 

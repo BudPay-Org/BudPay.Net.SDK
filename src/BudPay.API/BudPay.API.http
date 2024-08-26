@@ -1,0 +1,6 @@
+@BudPay.API_HostAddress = http://localhost:5239
+
+GET {{BudPay.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

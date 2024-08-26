@@ -34,5 +34,6 @@ public class BaseConstant
     public const string ElectricityProviders = "/v2/electricity";
     public const string ElectricityValidate = "/v2/electricity/validate";
     public const string ElectricityRecharge = "/v2/electricity/recharge";
+    public const string CardEncryptionV2 = "/s2s/v2/test/encryption";
     
 }

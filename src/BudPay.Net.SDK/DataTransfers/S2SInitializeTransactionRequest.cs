@@ -2,13 +2,18 @@
 
 public class S2SInitializeTransactionRequest
 {
-    public string amount { get; set; }
-    public string card { get; set; }
-    public string callback { get; set; }
-    public string currency { get; set; }
-    public string email { get; set; }
-    public string pin { get; set; }
-    public string reference { get; set; }
+    public string Amount { get; set; }
+    public string CardNumber { get; set; }
+    public string ExpiryYear { get; set; }
+    public string ExpiryMonth { get; set; }
+    public string CVV { get; set; }
+    public string Callback { get; set; }
+    public string Currency { get; set; }
+    public string Email { get; set; }
+    public string Pin { get; set; }
+    public string Reference { get; set; }
+    public byte[] Key { get; set; }
+    public byte[] IV { get; set; }
 }
 
 

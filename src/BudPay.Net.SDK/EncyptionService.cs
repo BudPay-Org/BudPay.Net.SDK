@@ -43,7 +43,40 @@ public class EncyptionService : IEncyptionService
         using (var hmac = new HMACSHA512(Encoding.UTF8.GetBytes(secretKey)))
         {
             byte[] hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(payload));
-            return BitConverter.ToString(hash).Replace("-", "").ToLower(); 
+            //return BitConverter.ToString(hash).Replace("-", "").ToLower(); 
+            return BitConverter.ToString(hash).ToLower();
         }
     }
+
+    public string EncryptCardData(string cardDataJson, string publicKey, string reference)
+    {
+        using (var aes = Aes.Create())
+        {
+            aes.KeySize = 256;
+            aes.BlockSize = 128;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+
+            // Convert publicKey and reference to byte arrays
+            byte[] key = Encoding.UTF8.GetBytes(publicKey);
+            byte[] iv = Encoding.UTF8.GetBytes(reference.Substring(0, 16)); // Ensure the IV is 16 bytes
+
+            aes.Key = key;
+            aes.IV = iv;
+
+            // Encrypt the card data
+            using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
+            using (var ms = new MemoryStream())
+            using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+            {
+                byte[] plainTextBytes = Encoding.UTF8.GetBytes(cardDataJson);
+                cs.Write(plainTextBytes, 0, plainTextBytes.Length);
+                cs.FlushFinalBlock();
+
+                byte[] cipherTextBytes = ms.ToArray();
+                return Convert.ToHexString(cipherTextBytes).ToLower();
+            }
+        }
+    }
+
 }

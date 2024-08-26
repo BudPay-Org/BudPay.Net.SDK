@@ -16,7 +16,7 @@ public class AcceptPaymentService : IAcceptPaymentService
         _httpClient = httpClient;
         this.encyptionService = encyptionService;
     }
-    public AcceptPaymentService(string token)
+    public AcceptPaymentService(string token) : this(new HttpClient(), new EncyptionService())
     {
         _token = token;
     }
@@ -38,10 +38,9 @@ public class AcceptPaymentService : IAcceptPaymentService
         return await HiBudPayClientIntegration.StandardCheckout(request, _token);
     }
 
-    public async Task<string> InitializeTransactionAsync(string cardNumber, string expiryMonth, string expiryYear, string cvv, string pin,
-      string amount, string callback, string currency, string email, string reference, byte[] key, byte[] iv)
+    public async Task<InitializeTransactionResponse> InitializeTransactionAsync(InitializeTransactionRequest request)
     {
-        return await HiBudPayClientIntegration.InitializeTransaction(cardNumber, expiryMonth, expiryYear, cvv, pin, amount, callback, currency, email, reference, key, iv, _token);
+        return await HiBudPayClientIntegration.InitializeTransaction(request, _token);
     }
 
     public async Task<BankTransferCheckoutResponse> BankTransferCheckoutAsync(BankTransferCheckoutRequest request)
@@ -60,7 +59,7 @@ public class AcceptPaymentService : IAcceptPaymentService
         return await HiBudPayClientIntegration.MomoPaymentRequest(request, _token);
     }
 
-    public async Task<string> V2InitializeTransactionS2S(S2SInitializeTransactionRequest request)
+    public async Task<InitializeTransactionResponse> V2InitializeTransactionS2S(S2SInitializeTransactionRequest request)
     {
         return await HiBudPayClientIntegration.V2InitializeTransactionS2S(request, _token);
     }

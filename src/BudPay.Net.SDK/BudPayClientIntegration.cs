@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using BudPay.Net.SDK.Constants;
 using BudPay.Net.SDK.DataTransfers;
@@ -66,13 +67,22 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
             var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
             var data = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<T>(data);
+          // Check if T is string to return data directly
+            if (typeof(T) == typeof(string))
+            {
+                return (T)(object)data;
+            }
+                
+             return JsonConvert.DeserializeObject<T>(data);
         }
 
 
         private HttpContent CreateHttpContent(object content)
         {
+            if(content is List<KeyValuePair<string, string>> keyValueContent)
+            {
+                  return new FormUrlEncodedContent(keyValueContent);
+            }
             var json = JsonConvert.SerializeObject(content, MicrosoftDateFormatSettings);
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
@@ -103,7 +113,9 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
 
         #region  Server to Server
 
-        private async Task<string> CardEncryption(string cardNumber, string expiryMonth, string expiryYear, string cvv, string pin, string reference,  byte[] key, byte[] iv)
+        private async Task<string> CardEncryption(string cardNumber, 
+        string expiryMonth, string expiryYear, 
+        string cvv, string pin, string reference,  byte[] key, byte[] iv)
         {
             var cardData = new CardDetailsRequest
             {
@@ -134,24 +146,27 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
         //Note: You will receive 3DS2 response for cards that support 3DS2. 
         //If not, you will get the Final Response instead.
 
-        public async Task<string> InitializeTransaction(string cardNumber, string expiryMonth, string expiryYear, string cvv, string pin, string amount, string callback, string currency, string email, string reference,  byte[] key, byte[] iv, string token)
-        {
-            
-             string card = await CardEncryption(cardNumber, expiryMonth, expiryYear, cvv, pin, reference, key, iv);
+        public async Task<InitializeTransactionResponse> InitializeTransaction(InitializeTransactionRequest request, string token)
+        {           
+             string card = await CardEncryption(
+                                request.CardNumber, request.ExpiryMonth, 
+                                request.ExpiryYear, request.CVV, 
+                                request.Pin,  request.Reference, 
+                                request.Key, request.IV);
 
-              var paylod = new List<KeyValuePair<string, string>>
-              {
-                  new("amount", amount),
-                  new("card", card),
-                  new("callback", callback),
-                  new("currency", currency),
-                  new("email", email),
-                  new("pin", pin),
-                  new("reference", reference),
-              };
-
-             var response = await PostAsync<string>(BaseConstant.InitializeTransactionS2S, paylod, token);
-             if (response is null) return string.Empty;
+               var payload = new CardTransactionRequest
+               {
+                    amount = request.Amount,
+                    card = card,
+                    callback = request.Callback,
+                    currency = request.Currency,
+                    email = request.Email,
+                    pin = request.Pin,
+                    reference = request.Reference
+               };
+             
+             var response = await PostAsync<InitializeTransactionResponse>(BaseConstant.InitializeTransactionS2S, payload, token);
+             if (response is null) return new InitializeTransactionResponse();
              return response;   
         }
 
@@ -189,27 +204,51 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
         #endregion Server to Server Momo Collection
 
 
-        public async Task<string> V2InitializeTransactionS2S(S2SInitializeTransactionRequest request, string token)
-        {
-            var payload = new List<KeyValuePair<string, string>>
+        public async Task<InitializeTransactionResponse> V2InitializeTransactionS2S(S2SInitializeTransactionRequest request, string token)
+        {          
+           var cardDetails = new CardDetailsRequest
+           {
+            data = new CardDetails
             {
-                new("amount", request.amount),
-                new("card", request.card),
-                new("currency", request.currency),
-                new("email", request.email),
-                new("reference", request.reference)
+                number = request.CardNumber,
+                expiryMonth = request.ExpiryMonth,
+                expiryYear = request.ExpiryYear,
+                cvv = request.CVV,
+            },
+            reference = request.Reference,
+           };
+
+            var cardString = JsonConvert.SerializeObject(cardDetails);
+           //var cardResponse =  _encyptionService.EncryptCardData(cardString, "pk_test_llnhishspn7uayrsmzxvdjqzk9p03aekbitjks", request.Reference);
+            var cardResponse =  await CardEncryptionV2(cardDetails, token);
+
+            var payload = new TransactionEncryptionRequest
+            {
+                amount = request.Amount,
+                card = cardResponse,
+                currency = request.Currency,
+                email = request.Email,
+                reference = request.Reference,
             };
-           
+            
           var stringyfiedPayload =  JsonConvert.SerializeObject(payload);
-          var signature = _encyptionService.GenerateHmacSha512Signature(token, stringyfiedPayload);
-          var response =  await PostAsync<string>(BaseConstant.InitializeTransactionS2S, request, token, signature);
-          if(response is null) return string.Empty;
+          var signature = _encyptionService.GenerateHmacSha512Signature(stringyfiedPayload, token);
+          var response =  await PostAsync<InitializeTransactionResponse>(BaseConstant.InitializeTransactionS2S, payload, token, signature);
+          if(response is null) return new InitializeTransactionResponse();
           return response;
         }
+
+     
+
+      public async Task<string> CardEncryptionV2(CardDetailsRequest request, string token)
+       {
+         var response = await PostAsync<string>(BaseConstant.CardEncryptionV2, request, token);
+          return response ?? string.Empty;
+       }
    
     #endregion Server to Server
 
-
+      
      public async Task<CreateInvoiceResponse> CreateInvoice(CreateInvoiceRequest request, string token)
      {
         var response = await PostAsync<CreateInvoiceResponse>(BaseConstant.CreateInvoice, request,  token);
