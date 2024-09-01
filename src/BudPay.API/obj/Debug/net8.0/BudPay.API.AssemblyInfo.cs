@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BudPay.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54557007f27598195ac8083c83adda59c9da4aa2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7d52e83547b604fa4ba800e46695ff376121af2")]
 [assembly: System.Reflection.AssemblyProductAttribute("BudPay.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BudPay.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
