@@ -6,19 +6,21 @@ namespace BudPay.Net.SDK.Transactions;
 public class AcceptPaymentService : IAcceptPaymentService
 {
     private readonly string _token;
+    private readonly string _publicKey;
     private IBudPayClientIntegration _budPayClientIntegration;
     private readonly HttpClient _httpClient;
     private readonly EncyptionService encyptionService;
 
 
-    public AcceptPaymentService(HttpClient httpClient, EncyptionService encyptionService)
+    private AcceptPaymentService(HttpClient httpClient, EncyptionService encyptionService)
     {
         _httpClient = httpClient;
         this.encyptionService = encyptionService;
     }
-    public AcceptPaymentService(string token) : this(new HttpClient(), new EncyptionService())
+    public AcceptPaymentService(string token, string publicKey) : this(new HttpClient(), new EncyptionService())
     {
         _token = token;
+        _publicKey = publicKey;
     }
 
 
@@ -48,20 +50,20 @@ public class AcceptPaymentService : IAcceptPaymentService
         return await HiBudPayClientIntegration.BankTransferCheckout(request, _token);
     }
 
-    public async Task<string> MomoPaymentProvidersAsync(string currency)
+    public async Task<MomoPaymentProvidersResponse> MomoPaymentProvidersAsync(string currency)
     {
         return await HiBudPayClientIntegration.MomoPaymentProviders(currency, _token);
     }
 
 
-    public async Task<string> MomoPaymentRequestAsync(MomoInitiatePaymentRequest request)
+    public async Task<MomoInitiatePaymentResponse> MomoPaymentRequestAsync(MomoInitiatePaymentRequest request)
     {
         return await HiBudPayClientIntegration.MomoPaymentRequest(request, _token);
     }
 
     public async Task<InitializeTransactionResponse> V2InitializeTransactionS2S(S2SInitializeTransactionRequest request)
     {
-        return await HiBudPayClientIntegration.V2InitializeTransactionS2S(request, _token);
+        return await HiBudPayClientIntegration.V2InitializeTransactionS2S(request, _token, _publicKey);
     }
 
     public async Task<CreateInvoiceResponse> CreateInvoiceAsync(CreateInvoiceRequest request)
@@ -69,6 +71,10 @@ public class AcceptPaymentService : IAcceptPaymentService
         return await HiBudPayClientIntegration.CreateInvoice(request, _token);
     }
 
+   public async Task<PaymentLinkResponse> GenreratePaymentLinkAsync(PaymentLinkRequest request)
+   {
+    return await HiBudPayClientIntegration.GeneratePaymentLink(request, _token);
+   }
     public async Task<VerifyCollectionTransactionResponse> VerifyTransactionAsync(string reference)
     {
         return await HiBudPayClientIntegration.VerifyTransaction(reference, _token);

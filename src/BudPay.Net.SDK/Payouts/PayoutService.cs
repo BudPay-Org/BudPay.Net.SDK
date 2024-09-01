@@ -6,6 +6,7 @@ namespace BudPay.Net.SDK.Payouts;
 public class PayoutService : IPayoutService
 {
     private readonly string _token;
+    private readonly string _publicKey;
      private readonly HttpClient _httpClient;
      private readonly EncyptionService encyptionService;
     private  IBudPayClientIntegration _hiBudPayClientIntegration;
@@ -17,9 +18,10 @@ public class PayoutService : IPayoutService
         this.encyptionService = encyptionService;
     }
 
-    public PayoutService(string token) : this(new HttpClient(), new EncyptionService())
+    public PayoutService(string token, string publicKey) : this(new HttpClient(), new EncyptionService())
     {
         _token = token;
+        _publicKey = publicKey;
     }
 
   
@@ -47,13 +49,13 @@ public class PayoutService : IPayoutService
 
   public async Task<SinglePayoutResponse> SinglePayout(SinglePayoutRequest request)
   {
-    return await HiBudPayClientIntegration.SinglePayout(request, _token);
+    return await HiBudPayClientIntegration.SinglePayout(request, _token, _publicKey);
   }
 
 
   public async Task<BulkPayoutResponse> BulkPayout(BulkPayoutRequest request)
   {
-    return await HiBudPayClientIntegration.BulkPayout(request, _token);
+    return await HiBudPayClientIntegration.BulkPayout(request, _token, _publicKey);
   }
 
 public async Task< VerifyPayoutResponse> VerifyPayout(string reference)

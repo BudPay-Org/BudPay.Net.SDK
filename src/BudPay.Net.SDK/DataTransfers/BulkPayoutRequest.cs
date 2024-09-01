@@ -2,15 +2,15 @@
 
 public class BulkPayoutRequest
 {
-   public string Currency { get; set; } = "NGN";
-  public List<BankTransfer> Transfers { get; set; }
+   public string currency { get; set; } = "NGN";
+  public List<BankTransfer> transfers { get; set; }
 }
 
 public class BankTransfer
 {
-    public string Amount { get; set; }
-    public string BankCode { get; set; }
-    public string BankName { get; set; }
-    public string AccountNumber { get; set; }
-    public string Narration { get; set; }
+    public string amount { get; set; }
+    public string bank_code { get; set; }
+    public string bank_name { get; set; }
+    public string account_number { get; set; }
+    public string narration { get; set; }
 }

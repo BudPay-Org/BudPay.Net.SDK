@@ -20,14 +20,16 @@ namespace BudPay.Net.SDK;
 public class BudPayApi 
 {
     public readonly string _token;
+    private readonly string _publicKey;
     private IAcceptPaymentService _acceptPayments;
     private IPayoutService _payoutService;
     private IBillPaymentService _billPaymentService;
 
-    
-    public BudPayApi(string token)
+
+    public BudPayApi(string token, string publicKey)
     {
-        _token  = token;
+        _token = token;
+        _publicKey = publicKey;
     }
 
     public IAcceptPaymentService AcceptPaymentService
@@ -35,7 +37,7 @@ public class BudPayApi
         get
         {
            if(_acceptPayments == null) 
-           _acceptPayments = new AcceptPaymentService(_token);  
+           _acceptPayments = new AcceptPaymentService(_token, _publicKey);  
            return _acceptPayments;  
         }
     }
@@ -45,7 +47,7 @@ public class BudPayApi
         get
         {
            if(_payoutService == null)
-           _payoutService = new PayoutService(_token);
+           _payoutService = new PayoutService(_token, _publicKey);
            return _payoutService;
         }
     }
@@ -55,7 +57,7 @@ public class BudPayApi
         get
         {
             if (_billPaymentService == null)
-            _billPaymentService = new BillPaymentService(_token);
+            _billPaymentService = new BillPaymentService(_token, _publicKey);
             return _billPaymentService;
         }
     }

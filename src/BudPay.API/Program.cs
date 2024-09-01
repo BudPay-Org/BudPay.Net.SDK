@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddSingleton<BudPayApi>(provider => new BudPayApi("sk_test_q70kdalncevusj1fbbobjjby3txmt1sdacq8hda"));
+builder.Services.AddSingleton<BudPayApi>(provider => new BudPayApi("sk_test_q70kdalncevusj1fbbobjjby3txmt1sdacq8hda",
+ "pk_test_llnhishspn7uayrsmzxvdjqzk9p03aekbitjks"));
 
 // Add other services
  builder.Services.AddControllers();

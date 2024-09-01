@@ -12,7 +12,7 @@ public interface IBillPaymentService
      Task<TvProvidersResponse> GetAllTvProvidersAsync();
      Task<TvPackageResponse> TvPackagesAsync(string provider);
      Task<TvValidateResponse> TvValidateAsync(string provider, string number);
-     Task<TvSubscriptionResponse> TvSubscriptionAsync(string provider, string number, string code, string reference);
+     Task<TvSubscriptionResponse> TvSubscriptionAsync(TvSubscriptionRequest request);
      Task<ElectricityProviderResponse> ElectricityProviders();
      Task<ElectricityValidateResponse> ElectricityValidate(string provider, string type, string number);
      Task<ElectricityRechargeResponse> ElectricityRecharge(ElectricityRechargeRequest request);

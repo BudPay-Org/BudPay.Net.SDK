@@ -1,20 +1,20 @@
-﻿namespace BudPay.Net.SDK.DataTransfers;
+﻿using Newtonsoft.Json;
+
+namespace BudPay.Net.SDK.DataTransfers;
 
 public class SinglePayoutRequest
 {
-    public string Currency { get; set; } = "NGN";
+    public string currency { get; set; } = "NGN";
     
-    public string Amount { get; set; }
+    public string amount { get; set; }
     
-    public string BankCode { get; set; }
+    public string bank_code { get; set; }
     
-    public string BankName { get; set; }
+    public string bank_name { get; set; }
+
+    public string account_number { get; set; }
     
-    public string AccountNumber { get; set; }
+    public string narration { get; set; }
     
-    public string Narration { get; set; }
-    
-    public string? PaymentMode { get; set; }
-    
-    public string Reference { get; set; }
+     
 }

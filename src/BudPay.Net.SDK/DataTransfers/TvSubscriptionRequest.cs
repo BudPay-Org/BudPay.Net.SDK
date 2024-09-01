@@ -1,12 +1,10 @@
 ﻿namespace BudPay.Net.SDK.DataTransfers;
 
-public class AirtimeTopupRequest
+public class TvSubscriptionRequest
 {
-     public string provider { get; set; }
+    public string provider { get; set; }
     public string number { get; set; }
-    public string amount { get; set; }
+    public string code { get; set; }
     public string reference { get; set; }
+
 }
-
-
-

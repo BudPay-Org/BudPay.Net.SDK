@@ -6,6 +6,7 @@ namespace BudPay.Net.SDK.BillPayments;
 public class BillPaymentService : IBillPaymentService
 {
       private readonly string _token;
+      private readonly string _publicKey;
      private readonly HttpClient _httpClient;
      private readonly EncyptionService encyptionService;
     private IBudPayClientIntegration _hiBudPayClientIntegration;
@@ -17,13 +18,14 @@ public class BillPaymentService : IBillPaymentService
         this.encyptionService = encyptionService;
     }
 
-     public BillPaymentService(string token) : this(new HttpClient(), new EncyptionService())
+    public BillPaymentService(string token, string publicKey) : this(new HttpClient(), new EncyptionService())
     {
         _token = token;
+        _publicKey = publicKey;
     }
 
 
-  private IBudPayClientIntegration HiBudPayClientIntegration
+    private IBudPayClientIntegration HiBudPayClientIntegration
   {
     get
     {
@@ -55,7 +57,7 @@ public class BillPaymentService : IBillPaymentService
 
   public async Task<InternetDataPurchaseResponse> InternetDataPurchaseAsync(InternetDataPurchaseRequest request)
   {
-    return await HiBudPayClientIntegration.InternetDataPurchase(request, _token);
+    return await HiBudPayClientIntegration.InternetDataPurchase(request, _token, _publicKey);
   }
 
   public async Task<TvProvidersResponse> GetAllTvProvidersAsync()
@@ -72,9 +74,9 @@ public class BillPaymentService : IBillPaymentService
   {
     return await HiBudPayClientIntegration.TvValidate(provider, number, _token);
   } 
-  public async Task<TvSubscriptionResponse> TvSubscriptionAsync(string provider, string number, string code, string reference)
+  public async Task<TvSubscriptionResponse> TvSubscriptionAsync(TvSubscriptionRequest request)
   {
-    return await HiBudPayClientIntegration.TvSubscription(provider, number, code, reference, _token);
+    return await HiBudPayClientIntegration.TvSubscription(request, _token, _publicKey);
   }
 
   public async Task<ElectricityProviderResponse> ElectricityProviders()
@@ -89,6 +91,6 @@ public class BillPaymentService : IBillPaymentService
 
   public async Task<ElectricityRechargeResponse> ElectricityRecharge(ElectricityRechargeRequest request)
   {
-    return await HiBudPayClientIntegration.ElectricityRecharge(request, _token);
+    return await HiBudPayClientIntegration.ElectricityRecharge(request, _token, _publicKey);
   }
 }

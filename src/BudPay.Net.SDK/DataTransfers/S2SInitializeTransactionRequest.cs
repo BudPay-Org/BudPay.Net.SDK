@@ -12,8 +12,7 @@ public class S2SInitializeTransactionRequest
     public string Email { get; set; }
     public string Pin { get; set; }
     public string Reference { get; set; }
-    public byte[] Key { get; set; }
-    public byte[] IV { get; set; }
+   
 }
 
 

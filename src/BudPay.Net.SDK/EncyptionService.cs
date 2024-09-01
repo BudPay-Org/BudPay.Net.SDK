@@ -38,15 +38,16 @@ public class EncyptionService : IEncyptionService
         }     
     }
 
-    public string GenerateHmacSha512Signature(string secretKey, string payload)
+    public string GenerateHmacSha512Signature(string publicKey, string payload)
     {
-        using (var hmac = new HMACSHA512(Encoding.UTF8.GetBytes(secretKey)))
+        using (var hmac = new HMACSHA512(Encoding.UTF8.GetBytes(publicKey)))
         {
             byte[] hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(payload));
-            //return BitConverter.ToString(hash).Replace("-", "").ToLower(); 
-            return BitConverter.ToString(hash).ToLower();
+            return BitConverter.ToString(hash).Replace("-", "").ToLower(); 
+           
         }
     }
+
 
     public string EncryptCardData(string cardDataJson, string publicKey, string reference)
     {

@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Text;
 using BudPay.Net.SDK.Constants;
 using BudPay.Net.SDK.DataTransfers;
@@ -186,25 +185,25 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
        /// from your customer directly from your application or custom checkout.
        /// </summary>
 
-        public async Task<string> MomoPaymentProviders(string currency, string token)
+        public async Task<MomoPaymentProvidersResponse> MomoPaymentProviders(string currency, string token)
         {
-           var response = await GetAsync<string>(string.Concat(BaseConstant.MomoPaymentProviders, currency), null, token);
-           if (response is null) return string.Empty;
+           var response = await GetAsync<MomoPaymentProvidersResponse>(string.Concat(BaseConstant.MomoPaymentProviders, currency), null, token);
+           if (response is null) return new MomoPaymentProvidersResponse();
            return response;
 
         }
 
-        public async Task<string> MomoPaymentRequest(MomoInitiatePaymentRequest request, string token)
+        public async Task<MomoInitiatePaymentResponse> MomoPaymentRequest(MomoInitiatePaymentRequest request, string token)
         {
-            var response = await PostAsync<string>(BaseConstant.MonoPaymentRequest, request,  token);
-            if(response is null) return string.Empty;
+            var response = await PostAsync<MomoInitiatePaymentResponse>(BaseConstant.MonoPaymentRequest, request,  token);
+            if(response is null) return new MomoInitiatePaymentResponse();
             return response;
         }
 
         #endregion Server to Server Momo Collection
 
 
-        public async Task<InitializeTransactionResponse> V2InitializeTransactionS2S(S2SInitializeTransactionRequest request, string token)
+        public async Task<InitializeTransactionResponse> V2InitializeTransactionS2S(S2SInitializeTransactionRequest request, string token, string publicKey)
         {          
            var cardDetails = new CardDetailsRequest
            {
@@ -219,9 +218,7 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
            };
 
             var cardString = JsonConvert.SerializeObject(cardDetails);
-           //var cardResponse =  _encyptionService.EncryptCardData(cardString, "pk_test_llnhishspn7uayrsmzxvdjqzk9p03aekbitjks", request.Reference);
-            var cardResponse =  await CardEncryptionV2(cardDetails, token);
-
+           var cardResponse =  _encyptionService.EncryptCardData(cardString, publicKey, request.Reference);    
             var payload = new TransactionEncryptionRequest
             {
                 amount = request.Amount,
@@ -232,19 +229,11 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
             };
             
           var stringyfiedPayload =  JsonConvert.SerializeObject(payload);
-          var signature = _encyptionService.GenerateHmacSha512Signature(stringyfiedPayload, token);
+          var signature =  _encyptionService.GenerateHmacSha512Signature(publicKey, stringyfiedPayload);
           var response =  await PostAsync<InitializeTransactionResponse>(BaseConstant.InitializeTransactionS2S, payload, token, signature);
           if(response is null) return new InitializeTransactionResponse();
           return response;
         }
-
-     
-
-      public async Task<string> CardEncryptionV2(CardDetailsRequest request, string token)
-       {
-         var response = await PostAsync<string>(BaseConstant.CardEncryptionV2, request, token);
-          return response ?? string.Empty;
-       }
    
     #endregion Server to Server
 
@@ -295,18 +284,18 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
 
     public async Task<BankListResponse> BankList(string token, string? currency = "NGN")
     {
-        var response = await GetAsync<BankListResponse>(string.Concat(BaseConstant.GetBanks, $"/{currency}"));
+        var response = await GetAsync<BankListResponse>(string.Concat(BaseConstant.GetBanks, $"/{currency}"), null, token);
         if(response is null) return new BankListResponse();
         return response;
     }
 
     public async Task<AccountNumberValidationResponse> AccountNameValidation(string bankCode, string accountNumber, string currency, string token)
     {
-        var payload = new List<KeyValuePair<string, string>>
+       var payload =  new AccountNumberValidationRequest
         {
-            new("bank_code", bankCode),
-            new("account_number", accountNumber),
-            new("currency", currency)
+          bank_code = bankCode,
+          account_number = accountNumber,
+          currency = currency,
         };
               
         var response = await PostAsync<AccountNumberValidationResponse>(BaseConstant.AccountNameValidation,  payload, token);
@@ -314,17 +303,17 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
         return response;
     }
 
-    public async Task<SinglePayoutResponse> SinglePayout(SinglePayoutRequest request, string token)
-    {
-       var encryption =   _encyptionService.GenerateHmacSha512Signature(token, JsonConvert.SerializeObject(request));
+    public async Task<SinglePayoutResponse> SinglePayout(SinglePayoutRequest request, string token, string publicKey)
+    {  
+        var encryption =   _encyptionService.GenerateHmacSha512Signature(publicKey, JsonConvert.SerializeObject(request));
         var response = await PostAsync<SinglePayoutResponse>(BaseConstant.SinglePayout, request, token, encryption);
         if (response is null) return new SinglePayoutResponse();
         return response;
     }
 
-    public async Task<BulkPayoutResponse> BulkPayout(BulkPayoutRequest request, string token)
+    public async Task<BulkPayoutResponse> BulkPayout(BulkPayoutRequest request, string token, string publicKey)
     {
-        var encryption =   _encyptionService.GenerateHmacSha512Signature(token, JsonConvert.SerializeObject(request));
+        var encryption =   _encyptionService.GenerateHmacSha512Signature(publicKey, JsonConvert.SerializeObject(request));
        var response = await PostAsync<BulkPayoutResponse>(BaseConstant.BulkPayout, request, token, encryption);
        if(response is null) return new BulkPayoutResponse();
        return response;
@@ -387,11 +376,11 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
         return response;
       }
 
-      public async Task<AirtimeTopupResponse> AirtimeTopup(AirtimeTopupRequest request, string token)
+      public async Task<AirtimeTopupResponse> AirtimeTopup(AirtimeTopupRequest request, string publicKey)
       {
         var payload = JsonConvert.SerializeObject(request);
-        var encryption = _encyptionService.GenerateHmacSha512Signature(token, payload);
-       var response =  await PostAsync<AirtimeTopupResponse>(BaseConstant.AirtimeTopup, request, token, encryption);
+        var encryption = _encyptionService.GenerateHmacSha512Signature(publicKey, payload);
+       var response =  await PostAsync<AirtimeTopupResponse>(BaseConstant.AirtimeTopup, request, publicKey, encryption);
        if(response is null) return new AirtimeTopupResponse();
        return response;
         
@@ -412,10 +401,10 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
        return response;
       }
 
-      public async Task<InternetDataPurchaseResponse> InternetDataPurchase(InternetDataPurchaseRequest request, string token)
+      public async Task<InternetDataPurchaseResponse> InternetDataPurchase(InternetDataPurchaseRequest request, string token, string publicKey)
       {
         var payload = JsonConvert.SerializeObject(request);
-        var encryption = _encyptionService.GenerateHmacSha512Signature(token, payload);
+        var encryption = _encyptionService.GenerateHmacSha512Signature(publicKey, payload);
         var response = await PostAsync<InternetDataPurchaseResponse>(BaseConstant.InternetDataPurchase, request, token, encryption);
         if(response is null) return new InternetDataPurchaseResponse();
         return response;
@@ -449,18 +438,10 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
       }
 
 
-      public async Task<TvSubscriptionResponse> TvSubscription(string provider, string number, string code, string reference, string token)
-      {
-         var payload = new List<KeyValuePair<string, string>>()
-         {
-            new("provider", provider),
-            new("number", number),
-            new("code", code),
-            new("reference", reference)
-         };
-           var stringyfiedPayload = JsonConvert.SerializeObject(payload);
-         var encryption =  _encyptionService.GenerateHmacSha512Signature(token, stringyfiedPayload);
-         var response = await PostAsync<TvSubscriptionResponse>(BaseConstant.TvSubscription, payload, token, encryption);
+      public async Task<TvSubscriptionResponse> TvSubscription(TvSubscriptionRequest request, string token, string publicKey)
+      {   
+         var encryption =  _encyptionService.GenerateHmacSha512Signature(publicKey, JsonConvert.SerializeObject(request));
+         var response = await PostAsync<TvSubscriptionResponse>(BaseConstant.TvSubscription, request, token, encryption);
          if (response is null) return new TvSubscriptionResponse();
          return response;
       }
@@ -488,10 +469,10 @@ public class BudPayClientIntegration  : IBudPayClientIntegration
 
       }
 
-      public async Task<ElectricityRechargeResponse> ElectricityRecharge(ElectricityRechargeRequest request, string token)
+      public async Task<ElectricityRechargeResponse> ElectricityRecharge(ElectricityRechargeRequest request, string token, string publicKey)
       {
          var payload = JsonConvert.SerializeObject(request);
-         var encryption = _encyptionService.GenerateHmacSha512Signature(token, payload);
+         var encryption = _encyptionService.GenerateHmacSha512Signature(publicKey, payload);
          var response = await PostAsync<ElectricityRechargeResponse>(BaseConstant.ElectricityRecharge, request, token, encryption);
          if (response is null) return new ElectricityRechargeResponse();
          return response;

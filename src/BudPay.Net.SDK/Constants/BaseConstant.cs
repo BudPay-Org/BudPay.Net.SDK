@@ -30,7 +30,7 @@ public class BaseConstant
     public const string TvProviders = "/v2/tv";
     public const string TvPackages = "/v2/tv/packages/{provider}";
     public const string TvValidate = "/v2/tv/validate";
-    public const string TvSubscription = "/tv/pay";
+    public const string TvSubscription = "/v2/tv/pay";
     public const string ElectricityProviders = "/v2/electricity";
     public const string ElectricityValidate = "/v2/electricity/validate";
     public const string ElectricityRecharge = "/v2/electricity/recharge";
