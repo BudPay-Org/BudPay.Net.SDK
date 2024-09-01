@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj": {}
+    "/Users/falade/Documents/Projects/SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj": {}
   },
   "projects": {
-    "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj": {
+    "/Users/falade/Documents/Projects/SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj",
+        "projectUniqueName": "/Users/falade/Documents/Projects/SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj",
         "projectName": "BudPay.Net.SDK",
-        "projectPath": "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj",
-        "packagesPath": "/Users/mavics/.nuget/packages/",
-        "outputPath": "/Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/obj/",
+        "projectPath": "/Users/falade/Documents/Projects/SDK/src/BudPay.Net.SDK/BudPay.Net.SDK.csproj",
+        "packagesPath": "/Users/falade/.nuget/packages/",
+        "outputPath": "/Users/falade/Documents/Projects/SDK/src/BudPay.Net.SDK/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/mavics/.nuget/NuGet/NuGet.Config"
+          "/Users/falade/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"

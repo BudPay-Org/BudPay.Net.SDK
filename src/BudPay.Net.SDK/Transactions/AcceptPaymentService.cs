@@ -23,7 +23,6 @@ public class AcceptPaymentService : IAcceptPaymentService
         _publicKey = publicKey;
     }
 
-
     private IBudPayClientIntegration HiBudPayClientIntegration
     {
         get
@@ -33,7 +32,6 @@ public class AcceptPaymentService : IAcceptPaymentService
             return _budPayClientIntegration;
         }
     }
-
 
     public async Task<StandardCheckoutResponse> StandardCheckoutAsync(StandardCheckoutRequest request)
     {
@@ -89,5 +87,4 @@ public class AcceptPaymentService : IAcceptPaymentService
     {
         return await HiBudPayClientIntegration.FetchAllTransactions(_token);
     }
-
 }

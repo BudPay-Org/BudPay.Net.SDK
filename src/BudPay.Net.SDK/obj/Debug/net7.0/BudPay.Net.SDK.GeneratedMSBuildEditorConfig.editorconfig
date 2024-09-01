@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BudPay.Net.SDK
-build_property.ProjectDir = /Users/mavics/Documents/BudPay/BudPay-SDK/BudPay.Net.SDK/src/BudPay.Net.SDK/
+build_property.ProjectDir = /Users/falade/Documents/Projects/SDK/src/BudPay.Net.SDK/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

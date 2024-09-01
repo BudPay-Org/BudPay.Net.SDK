@@ -15,5 +15,4 @@ public interface IAcceptPaymentService
      Task<VerifyCollectionTransactionResponse> VerifyTransactionAsync(string reference);
      Task<FetchTransactionResponse> FetchTransactionByIdAsync(string Id);
      Task<FetchAllTransactionsResponse> FetchAllTransactionsAsync();
-
 }
