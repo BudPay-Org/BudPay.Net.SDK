@@ -14,7 +14,7 @@ public class BaseConstant
     public const string FetchTransaction = "/v2/transaction/:";
     public const string FetchAllTransactions = "/v2/transaction";
     public const string GetBanks = "/v2/bank_list";
-    public const string AccountNameValidation = "v2/account_name_verify";
+    public const string AccountNameValidation = "/v2/account_name_verify";
     public const string SinglePayout = "/v2/bank_transfer";
     public const string BulkPayout = "/v2/bulk_bank_transfer";
     public const string VerifyPayout = "/v2/payout/:reference";
